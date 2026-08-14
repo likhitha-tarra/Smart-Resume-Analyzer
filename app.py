@@ -23,7 +23,7 @@ st.set_page_config(
 
 
 # =========================================================
-# CUSTOM CSS
+# CSS
 # =========================================================
 
 st.markdown("""
@@ -70,51 +70,193 @@ st.markdown(
 # SKILLS DATABASE
 # =========================================================
 
-ALL_SKILLS = [
-    "Python",
-    "Java",
-    "C++",
-    "C",
-    "SQL",
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Node.js",
-    "Machine Learning",
-    "Deep Learning",
-    "Artificial Intelligence",
-    "Data Science",
-    "Data Structures",
-    "Algorithms",
-    "Object Oriented Programming",
-    "Git",
-    "GitHub",
-    "AWS",
-    "Docker",
-    "FastAPI",
-    "REST API",
-    "Database Management",
-    "Exploratory Data Analysis",
-    "Data Preprocessing",
-    "Local Storage"
-]
+SKILL_ALIASES = {
 
+    # Programming
+    "Python": ["python", "python3"],
+    "Java": ["java"],
+    "C++": ["c++", "cpp"],
+    "C": ["c programming", "c language"],
+    "C#": ["c#", "c sharp"],
+    "JavaScript": ["javascript", "js"],
+    "TypeScript": ["typescript", "ts"],
+    "Go": ["golang"],
+    "Rust": ["rust"],
+    "Kotlin": ["kotlin"],
+    "Swift": ["swift"],
+    "PHP": ["php"],
+    "Ruby": ["ruby"],
+    "R": ["r programming", "r language"],
 
-# =========================================================
-# JOB SKILLS
-# =========================================================
+    # Web
+    "HTML": ["html", "html5"],
+    "CSS": ["css", "css3"],
+    "React": ["react", "react.js", "reactjs"],
+    "Angular": ["angular"],
+    "Vue.js": ["vue", "vue.js", "vuejs"],
+    "Next.js": ["next.js", "nextjs"],
+    "Node.js": ["node.js", "nodejs", "node"],
+    "Express.js": ["express.js", "expressjs"],
+    "Django": ["django"],
+    "Flask": ["flask"],
+    "Spring Boot": ["spring boot"],
+    "ASP.NET": ["asp.net", ".net"],
 
-JOB_SKILLS = [
-    "Python",
-    "SQL",
-    "Machine Learning",
-    "Git",
-    "AWS",
-    "Docker",
-    "FastAPI",
-    "REST API"
-]
+    # AI / ML
+    "Machine Learning": [
+        "machine learning",
+        "ml"
+    ],
+    "Deep Learning": [
+        "deep learning",
+        "dl"
+    ],
+    "Artificial Intelligence": [
+        "artificial intelligence",
+        "ai"
+    ],
+    "Natural Language Processing": [
+        "natural language processing",
+        "nlp"
+    ],
+    "Computer Vision": [
+        "computer vision",
+        "cv"
+    ],
+    "Generative AI": [
+        "generative ai",
+        "genai",
+        "gen ai"
+    ],
+    "Large Language Models": [
+        "large language models",
+        "llm",
+        "llms"
+    ],
+    "TensorFlow": ["tensorflow"],
+    "PyTorch": ["pytorch"],
+    "Scikit-learn": ["scikit-learn", "sklearn"],
+    "Keras": ["keras"],
+    "OpenCV": ["opencv"],
+    "Hugging Face": ["hugging face", "huggingface"],
+
+    # Data
+    "Data Science": ["data science"],
+    "Data Analysis": ["data analysis"],
+    "Data Analytics": ["data analytics"],
+    "Data Visualization": ["data visualization"],
+    "Data Structures": ["data structures", "dsa"],
+    "Algorithms": ["algorithms"],
+    "Pandas": ["pandas"],
+    "NumPy": ["numpy"],
+    "Matplotlib": ["matplotlib"],
+    "Seaborn": ["seaborn"],
+    "Power BI": ["power bi"],
+    "Tableau": ["tableau"],
+    "Excel": ["excel", "microsoft excel"],
+
+    # Databases
+    "SQL": ["sql"],
+    "MySQL": ["mysql"],
+    "PostgreSQL": ["postgresql", "postgres"],
+    "MongoDB": ["mongodb", "mongo db"],
+    "Oracle": ["oracle"],
+    "SQLite": ["sqlite"],
+    "Redis": ["redis"],
+    "Firebase": ["firebase"],
+    "Database Management": [
+        "database management",
+        "database management systems",
+        "dbms"
+    ],
+
+    # Cloud
+    "AWS": ["aws", "amazon web services"],
+    "Microsoft Azure": ["azure", "microsoft azure"],
+    "Google Cloud": [
+        "google cloud",
+        "gcp",
+        "google cloud platform"
+    ],
+    "Cloud Computing": ["cloud computing"],
+
+    # DevOps
+    "Git": ["git"],
+    "GitHub": ["github"],
+    "GitLab": ["gitlab"],
+    "Docker": ["docker"],
+    "Kubernetes": ["kubernetes", "k8s"],
+    "Jenkins": ["jenkins"],
+    "CI/CD": ["ci/cd", "cicd", "continuous integration"],
+    "Terraform": ["terraform"],
+    "Ansible": ["ansible"],
+
+    # APIs / Backend
+    "REST API": [
+        "rest api",
+        "restful api",
+        "rest services"
+    ],
+    "FastAPI": ["fastapi"],
+    "GraphQL": ["graphql"],
+    "Microservices": ["microservices", "microservices architecture"],
+
+    # Big Data
+    "Apache Spark": ["apache spark", "spark"],
+    "Hadoop": ["hadoop"],
+    "Kafka": ["kafka", "apache kafka"],
+    "PySpark": ["pyspark"],
+    "ETL": ["etl", "extract transform load"],
+
+    # Mobile
+    "Android": ["android"],
+    "Android Studio": ["android studio"],
+    "Flutter": ["flutter"],
+    "React Native": ["react native"],
+    "iOS": ["ios"],
+
+    # Tools
+    "Streamlit": ["streamlit"],
+    "Jupyter": ["jupyter", "jupyter notebook"],
+    "VS Code": ["vs code", "visual studio code"],
+    "Postman": ["postman"],
+
+    # Concepts
+    "Object Oriented Programming": [
+        "object oriented programming",
+        "oops",
+        "oop"
+    ],
+    "Operating Systems": [
+        "operating systems",
+        "operating system"
+    ],
+    "Computer Networks": [
+        "computer networks",
+        "networking"
+    ],
+    "System Design": ["system design"],
+    "Software Development": [
+        "software development",
+        "software engineering"
+    ],
+
+    # Testing
+    "Unit Testing": ["unit testing"],
+    "Selenium": ["selenium"],
+    "Jest": ["jest"],
+    "PyTest": ["pytest", "py test"],
+
+    # Other
+    "NLP": ["nlp"],
+    "Cybersecurity": [
+        "cybersecurity",
+        "cyber security"
+    ],
+    "Blockchain": ["blockchain"],
+    "Solidity": ["solidity"],
+    "Linux": ["linux"],
+}
 
 
 # =========================================================
@@ -122,24 +264,28 @@ JOB_SKILLS = [
 # =========================================================
 
 SECTION_KEYWORDS = {
+
     "Education": [
         "education",
         "academic",
         "degree",
         "b.tech",
-        "btech"
+        "btech",
+        "bachelor"
     ],
 
     "Experience": [
         "experience",
         "internship",
-        "intern"
+        "intern",
+        "work experience"
     ],
 
     "Skills": [
         "skills",
         "technical skills",
-        "programming languages"
+        "programming languages",
+        "technologies"
     ],
 
     "Projects": [
@@ -162,68 +308,17 @@ SECTION_KEYWORDS = {
 
 
 # =========================================================
-# PDF TEXT EXTRACTION
+# NORMALIZE TEXT
 # =========================================================
 
-def extract_pdf_text(uploaded_file):
+def normalize_text(text):
 
-    text = ""
+    text = text.lower()
 
-    reader = PdfReader(uploaded_file)
-
-    for page in reader.pages:
-
-        page_text = page.extract_text()
-
-        if page_text:
-            text += page_text + "\n"
-
-    return text
-
-
-# =========================================================
-# DOCX TEXT EXTRACTION
-# =========================================================
-
-def extract_docx_text(uploaded_file):
-
-    if Document is None:
-        return ""
-
-    document = Document(uploaded_file)
-
-    text = []
-
-    for paragraph in document.paragraphs:
-        text.append(paragraph.text)
-
-    return "\n".join(text)
-
-
-# =========================================================
-# RESUME TEXT EXTRACTION
-# =========================================================
-
-def extract_resume_text(uploaded_file):
-
-    file_name = uploaded_file.name.lower()
-
-    if file_name.endswith(".pdf"):
-        return extract_pdf_text(uploaded_file)
-
-    if file_name.endswith(".docx"):
-        return extract_docx_text(uploaded_file)
-
-    return ""
-
-
-# =========================================================
-# CLEAN TEXT
-# =========================================================
-
-def clean_text(text):
-
-    text = text.replace("\x00", " ")
+    text = text.replace(
+        "\u00a0",
+        " "
+    )
 
     text = re.sub(
         r"\s+",
@@ -235,19 +330,76 @@ def clean_text(text):
 
 
 # =========================================================
-# FIND RESUME SKILLS
+# SKILL DETECTION
+# =========================================================
+
+def skill_exists(text, skill):
+
+    text = normalize_text(text)
+
+    skill = skill.lower()
+
+    # C++
+    if skill == "c++":
+        return bool(
+            re.search(
+                r"(?<!\w)c\+\+(?!\w)",
+                text
+            )
+        )
+
+    # C#
+    if skill == "c#":
+        return bool(
+            re.search(
+                r"(?<!\w)c#(?!\w)",
+                text
+            )
+        )
+
+    # C
+    if skill == "c programming":
+        return bool(
+            re.search(
+                r"\bc\s+programming\b",
+                text
+            )
+        )
+
+    pattern = (
+        r"(?<!\w)"
+        + re.escape(skill)
+        + r"(?!\w)"
+    )
+
+    return bool(
+        re.search(
+            pattern,
+            text
+        )
+    )
+
+
+# =========================================================
+# FIND SKILLS IN TEXT
 # =========================================================
 
 def find_skills(text):
 
     found = []
 
-    text_lower = text.lower()
+    for skill, aliases in SKILL_ALIASES.items():
 
-    for skill in ALL_SKILLS:
+        for alias in aliases:
 
-        if skill.lower() in text_lower:
-            found.append(skill)
+            if skill_exists(
+                text,
+                alias
+            ):
+
+                found.append(skill)
+
+                break
 
     return found
 
@@ -258,16 +410,9 @@ def find_skills(text):
 
 def find_job_skills(job_description):
 
-    found = []
-
-    job_lower = job_description.lower()
-
-    for skill in JOB_SKILLS:
-
-        if skill.lower() in job_lower:
-            found.append(skill)
-
-    return found
+    return find_skills(
+        job_description
+    )
 
 
 # =========================================================
@@ -278,7 +423,9 @@ def find_sections(text):
 
     found = []
 
-    text_lower = text.lower()
+    text_lower = normalize_text(
+        text
+    )
 
     for section, keywords in SECTION_KEYWORDS.items():
 
@@ -287,9 +434,126 @@ def find_sections(text):
             if keyword.lower() in text_lower:
 
                 found.append(section)
+
                 break
 
     return found
+
+
+# =========================================================
+# PDF EXTRACTION
+# =========================================================
+
+def extract_pdf_text(uploaded_file):
+
+    text = ""
+
+    try:
+
+        reader = PdfReader(
+            uploaded_file
+        )
+
+        for page in reader.pages:
+
+            page_text = page.extract_text()
+
+            if page_text:
+
+                text += (
+                    page_text
+                    + "\n"
+                )
+
+    except Exception:
+
+        return ""
+
+    return text
+
+
+# =========================================================
+# DOCX EXTRACTION
+# =========================================================
+
+def extract_docx_text(uploaded_file):
+
+    if Document is None:
+
+        return ""
+
+    try:
+
+        document = Document(
+            uploaded_file
+        )
+
+        paragraphs = []
+
+        for paragraph in document.paragraphs:
+
+            paragraphs.append(
+                paragraph.text
+            )
+
+        return "\n".join(
+            paragraphs
+        )
+
+    except Exception:
+
+        return ""
+
+
+# =========================================================
+# RESUME EXTRACTION
+# =========================================================
+
+def extract_resume_text(
+    uploaded_file
+):
+
+    file_name = (
+        uploaded_file.name.lower()
+    )
+
+    if file_name.endswith(
+        ".pdf"
+    ):
+
+        return extract_pdf_text(
+            uploaded_file
+        )
+
+    if file_name.endswith(
+        ".docx"
+    ):
+
+        return extract_docx_text(
+            uploaded_file
+        )
+
+    return ""
+
+
+# =========================================================
+# CLEAN TEXT
+# =========================================================
+
+def clean_text(text):
+
+    text = text.replace(
+        "\x00",
+        " "
+    )
+
+    text = re.sub(
+        r"\s+",
+        " ",
+        text
+    )
+
+    return text.strip()
 
 
 # =========================================================
@@ -302,21 +566,26 @@ def calculate_job_match(
 ):
 
     if not job_skills:
+
         return 0.0
 
-    resume_lower = [
+    resume_set = {
         skill.lower()
         for skill in resume_skills
-    ]
+    }
 
-    matching = [
+    matched = [
+
         skill
+
         for skill in job_skills
-        if skill.lower() in resume_lower
+
+        if skill.lower()
+        in resume_set
     ]
 
     score = (
-        len(matching)
+        len(matched)
         / len(job_skills)
     ) * 100
 
@@ -336,6 +605,7 @@ def calculate_semantic_similarity(
 ):
 
     if not resume_text or not job_description:
+
         return 0.0
 
     try:
@@ -353,62 +623,21 @@ def calculate_semantic_similarity(
             ]
         )
 
-        tfidf_similarity = cosine_similarity(
+        similarity = cosine_similarity(
             vectors[0:1],
             vectors[1:2]
         )[0][0]
 
-        job_keywords = [
-            "python",
-            "sql",
-            "fastapi",
-            "docker",
-            "aws",
-            "git",
-            "machine learning",
-            "rest api",
-            "data science",
-            "deep learning",
-            "javascript",
-            "react"
-        ]
-
-        resume_lower = resume_text.lower()
-        job_lower = job_description.lower()
-
-        relevant_keywords = [
-            word
-            for word in job_keywords
-            if word in job_lower
-        ]
-
-        matched_keywords = [
-            word
-            for word in relevant_keywords
-            if word in resume_lower
-        ]
-
-        keyword_score = (
-            len(matched_keywords)
-            / len(relevant_keywords)
-            if relevant_keywords
-            else 0
-        )
-
-        final_score = (
-            (tfidf_similarity * 60)
-            + (keyword_score * 40)
-        )
-
         return round(
             min(
-                float(final_score),
+                float(similarity * 100),
                 100.0
             ),
             1
         )
 
     except Exception:
+
         return 0.0
 
 
@@ -444,24 +673,22 @@ def calculate_ats_score(
 
         length_score = 8
 
-    ats_score = (
+    total = (
         skill_score
         + section_score
         + length_score
     )
 
-    ats_score = min(
-        float(ats_score),
-        100.0
-    )
-
     return int(
-        round(ats_score)
+        min(
+            round(total),
+            100
+        )
     )
 
 
 # =========================================================
-# RESUME UPLOAD
+# UI
 # =========================================================
 
 st.markdown(
@@ -471,24 +698,19 @@ st.markdown(
 
 uploaded_file = st.file_uploader(
     "Upload your Resume",
-    type=["pdf", "docx"]
+    type=[
+        "pdf",
+        "docx"
+    ]
 )
-
-
-# =========================================================
-# JOB DESCRIPTION
-# =========================================================
 
 job_description = st.text_area(
     "📝 Paste Job Description",
     height=220,
-    placeholder="Paste the job description here..."
+    placeholder=(
+        "Paste the complete job description here..."
+    )
 )
-
-
-# =========================================================
-# ANALYZE BUTTON
-# =========================================================
 
 analyze = st.button(
     "🚀 Analyze Resume",
@@ -501,10 +723,6 @@ analyze = st.button(
 # =========================================================
 
 if analyze:
-
-    # -----------------------------------------------------
-    # VALIDATION
-    # -----------------------------------------------------
 
     if uploaded_file is None:
 
@@ -523,9 +741,9 @@ if analyze:
         st.stop()
 
 
-    # -----------------------------------------------------
-    # EXTRACT RESUME
-    # -----------------------------------------------------
+    # =====================================================
+    # EXTRACT
+    # =====================================================
 
     resume_text = extract_resume_text(
         uploaded_file
@@ -535,18 +753,22 @@ if analyze:
         resume_text
     )
 
+    job_description = clean_text(
+        job_description
+    )
+
     if not resume_text:
 
         st.error(
-            "Could not extract text from the resume."
+            "Could not extract text from your resume."
         )
 
         st.stop()
 
 
-    # -----------------------------------------------------
-    # FIND SKILLS
-    # -----------------------------------------------------
+    # =====================================================
+    # DETECT SKILLS
+    # =====================================================
 
     resume_skills = find_skills(
         resume_text
@@ -557,44 +779,48 @@ if analyze:
     )
 
 
-    # -----------------------------------------------------
-    # FIND SECTIONS
-    # -----------------------------------------------------
+    # =====================================================
+    # SECTIONS
+    # =====================================================
 
     found_sections = find_sections(
         resume_text
     )
 
 
-    # -----------------------------------------------------
-    # MATCHING SKILLS
-    # -----------------------------------------------------
+    # =====================================================
+    # MATCHING
+    # =====================================================
 
-    resume_skill_lower = [
+    resume_skill_set = {
         skill.lower()
         for skill in resume_skills
-    ]
+    }
 
     matching_skills = [
+
         skill
+
         for skill in job_skills
-        if skill.lower() in resume_skill_lower
+
+        if skill.lower()
+        in resume_skill_set
     ]
 
 
-    # -----------------------------------------------------
-    # MISSING SKILLS
-    # -----------------------------------------------------
-
     missing_skills = [
+
         skill
+
         for skill in job_skills
-        if skill.lower() not in resume_skill_lower
+
+        if skill.lower()
+        not in resume_skill_set
     ]
 
 
     # =====================================================
-    # CALCULATE SCORES
+    # SCORES
     # =====================================================
 
     ats_score = calculate_ats_score(
@@ -614,17 +840,6 @@ if analyze:
     )
 
 
-    # Convert to normal Python numbers
-
-    ats_score = int(ats_score)
-
-    job_match = float(job_match)
-
-    semantic_score = float(
-        semantic_score
-    )
-
-
     # =====================================================
     # DASHBOARD
     # =====================================================
@@ -634,11 +849,6 @@ if analyze:
     st.header(
         "📊 Resume Analysis Dashboard"
     )
-
-
-    # -----------------------------------------------------
-    # SCORE CARDS
-    # -----------------------------------------------------
 
     col1, col2, col3 = st.columns(3)
 
@@ -664,31 +874,62 @@ if analyze:
         )
 
 
-    # -----------------------------------------------------
-    # PROGRESS BARS
-    # -----------------------------------------------------
+    # =====================================================
+    # PROGRESS
+    # =====================================================
 
     st.write("### ATS Score")
 
     st.progress(
-        ats_score / 100.0
+        ats_score / 100
     )
 
     st.write("### Job Match")
 
     st.progress(
-        job_match / 100.0
+        job_match / 100
     )
 
-    st.write("### Semantic Similarity")
+    st.write(
+        "### Semantic Similarity"
+    )
 
     st.progress(
-        semantic_score / 100.0
+        semantic_score / 100
     )
 
 
     # =====================================================
-    # MATCHING JOB SKILLS
+    # DETECTED JOB SKILLS
+    # =====================================================
+
+    st.subheader(
+        "🎯 Skills Detected from Job Description"
+    )
+
+    if job_skills:
+
+        st.write(
+            " • ".join(
+                job_skills
+            )
+        )
+
+    else:
+
+        st.warning(
+            "No known technical skills were detected "
+            "from this job description."
+        )
+
+        st.info(
+            "Try pasting the complete job description "
+            "including the Requirements or Skills section."
+        )
+
+
+    # =====================================================
+    # MATCHING
     # =====================================================
 
     st.subheader(
@@ -706,12 +947,12 @@ if analyze:
     else:
 
         st.warning(
-            "No matching job skills found."
+            "No matching skills were detected."
         )
 
 
     # =====================================================
-    # MISSING JOB SKILLS
+    # MISSING
     # =====================================================
 
     st.subheader(
@@ -728,9 +969,12 @@ if analyze:
 
     else:
 
-        st.success(
-            "Excellent! All important job skills were found."
-        )
+        if job_skills:
+
+            st.success(
+                "Excellent! All detected job skills "
+                "were found in your resume."
+            )
 
 
     # =====================================================
@@ -744,34 +988,15 @@ if analyze:
     if resume_skills:
 
         st.write(
-            " • ".join(resume_skills)
+            " • ".join(
+                resume_skills
+            )
         )
 
     else:
 
         st.warning(
-            "No skills detected."
-        )
-
-
-    # =====================================================
-    # JOB REQUIRED SKILLS
-    # =====================================================
-
-    st.subheader(
-        "🎯 Skills Required by Job"
-    )
-
-    if job_skills:
-
-        st.write(
-            " • ".join(job_skills)
-        )
-
-    else:
-
-        st.info(
-            "No predefined job skills detected."
+            "No known skills detected in the resume."
         )
 
 
@@ -811,7 +1036,7 @@ if analyze:
 
 
     # =====================================================
-    # RESUME STRENGTHS
+    # STRENGTHS
     # =====================================================
 
     st.subheader(
@@ -824,58 +1049,30 @@ if analyze:
             "✅ Strong technical skills coverage."
         )
 
+    elif len(resume_skills) >= 4:
+
+        st.write(
+            "✅ Good technical skills coverage."
+        )
+
     else:
 
         st.write(
-            "✅ Basic technical skills coverage."
+            "⚠️ Basic technical skills coverage."
         )
 
 
-    if len(matching_skills) >= 3:
+    if matching_skills:
 
         st.write(
             f"✅ Resume matches "
-            f"{len(matching_skills)} important job skills."
-        )
-
-    elif len(matching_skills) > 0:
-
-        st.write(
-            f"⚠️ Resume matches only "
-            f"{len(matching_skills)} job skills."
-        )
-
-    else:
-
-        st.write(
-            "⚠️ Resume does not currently match "
-            "the target job skills."
-        )
-
-
-    if "Projects" in found_sections:
-
-        st.write(
-            "✅ Projects section is present."
-        )
-
-
-    if "Experience" in found_sections:
-
-        st.write(
-            "✅ Experience section is present."
-        )
-
-
-    if "Achievements" in found_sections:
-
-        st.write(
-            "✅ Achievements section is present."
+            f"{len(matching_skills)} "
+            f"detected job skill(s)."
         )
 
 
     # =====================================================
-    # AREAS TO IMPROVE
+    # IMPROVEMENT
     # =====================================================
 
     st.subheader(
@@ -885,9 +1082,8 @@ if analyze:
     if missing_skills:
 
         st.write(
-            "Consider adding or highlighting "
-            "these job-relevant skills if you "
-            "genuinely have them:"
+            "Job-relevant skills not detected "
+            "in your resume:"
         )
 
         for skill in missing_skills:
@@ -896,30 +1092,33 @@ if analyze:
                 f"• {skill}"
             )
 
+        st.caption(
+            "Only add skills that you genuinely "
+            "know or have experience with."
+        )
+
+
+    if "Projects" not in found_sections:
+
+        st.write(
+            "• Add 1–2 relevant projects."
+        )
+
+
     if "Certifications" not in found_sections:
 
         st.write(
-            "• Add relevant certifications."
+            "• Add relevant certifications if available."
         )
 
 
     # =====================================================
-    # AI IMPROVEMENT PLAN
+    # IMPROVEMENT PLAN
     # =====================================================
 
     st.subheader(
-        "🤖 AI Resume Improvement Plan"
+        "🤖 Resume Improvement Plan"
     )
-
-    st.write(
-        "Based on the resume and target job, "
-        "here is a prioritized improvement plan."
-    )
-
-
-    # -----------------------------------------------------
-    # PRIORITY 1
-    # -----------------------------------------------------
 
     st.write(
         "### 🥇 Priority 1 — Job-Relevant Skills"
@@ -927,33 +1126,25 @@ if analyze:
 
     if missing_skills:
 
-        st.write(
-            "The following skills appear in the "
-            "job description but were not detected "
-            "in your resume:"
-        )
-
         for skill in missing_skills:
 
             st.write(
                 f"🔹 {skill}"
             )
 
-        st.caption(
-            "Only add skills that you genuinely "
-            "know or have experience with."
+    elif job_skills:
+
+        st.success(
+            "All detected job skills are present."
         )
 
     else:
 
-        st.success(
-            "All important job skills were detected."
+        st.info(
+            "No technical skills were detected "
+            "from the job description."
         )
 
-
-    # -----------------------------------------------------
-    # PRIORITY 2
-    # -----------------------------------------------------
 
     st.write(
         "### 🥈 Priority 2 — Projects"
@@ -962,52 +1153,45 @@ if analyze:
     if "Projects" in found_sections:
 
         st.write(
-            "✅ Your resume already contains a "
-            "Projects section."
+            "✅ Projects section is present."
         )
 
         st.write(
-            "💡 Consider highlighting projects "
-            "that use the job-relevant technologies."
+            "Highlight projects that use "
+            "job-relevant technologies."
         )
 
     else:
 
         st.write(
-            "⚠️ Add at least 1–2 relevant projects."
+            "⚠️ Add relevant projects."
         )
 
 
-    # -----------------------------------------------------
-    # PRIORITY 3
-    # -----------------------------------------------------
-
     st.write(
-        "### 🥉 Priority 3 — Resume Keywords"
+        "### 🥉 Priority 3 — Keywords"
     )
 
     if job_skills:
 
         st.write(
-            "Important job keywords:"
+            "Use relevant keywords naturally "
+            "in your resume where applicable:"
         )
 
         st.write(
-            " • ".join(job_skills)
+            " • ".join(
+                job_skills
+            )
         )
 
-
-    # -----------------------------------------------------
-    # PRIORITY 4
-    # -----------------------------------------------------
 
     st.write(
         "### 📈 Priority 4 — Achievements"
     )
 
     st.write(
-        "Show measurable results instead of "
-        "only listing responsibilities."
+        "Use measurable results whenever possible."
     )
 
     st.write(
@@ -1020,15 +1204,22 @@ if analyze:
     )
 
 
-    # -----------------------------------------------------
-    # PRIORITY 5
-    # -----------------------------------------------------
+    # =====================================================
+    # OVERALL MATCH
+    # =====================================================
 
     st.write(
-        "### 🎯 Priority 5 — Overall Match"
+        "### 🎯 Overall Job Match"
     )
 
-    if job_match >= 75:
+    if not job_skills:
+
+        st.info(
+            "Job Match cannot be meaningfully calculated "
+            "because no known technical skills were detected."
+        )
+
+    elif job_match >= 75:
 
         st.success(
             f"Excellent job match: "
@@ -1047,7 +1238,8 @@ if analyze:
         st.warning(
             f"Current job match: "
             f"{job_match:.0f}%. "
-            f"Your resume needs customization for this role."
+            f"Consider customizing your resume "
+            f"for this role."
         )
 
 
@@ -1060,12 +1252,20 @@ if analyze:
     )
 
     suggestions = [
+
         "Keep the resume clean and ATS-friendly.",
-        "Use strong action words such as Developed, Built, Implemented and Designed.",
-        "Add measurable achievements wherever possible.",
+
+        "Use strong action words such as "
+        "Developed, Built, Implemented and Designed.",
+
+        "Add measurable achievements.",
+
         "Keep skills relevant to the target role.",
+
         "Add GitHub and LinkedIn links if available.",
-        "Do not add skills that you do not genuinely know."
+
+        "Only include skills you genuinely know."
+
     ]
 
     for suggestion in suggestions:
@@ -1076,19 +1276,15 @@ if analyze:
 
 
     # =====================================================
-    # EXTRACTED RESUME TEXT
+    # RESUME TEXT
     # =====================================================
 
     with st.expander(
-        "📄 View Cleaned Resume Text"
+        "📄 View Extracted Resume Text"
     ):
 
-        st.write(
-            "### Resume Content"
-        )
-
         st.text_area(
-            "Extracted Resume",
+            "Resume Content",
             resume_text,
             height=400
         )
@@ -1102,8 +1298,6 @@ if analyze:
 SMART RESUME ANALYZER
 =====================
 
-RESUME ANALYSIS REPORT
-
 ATS SCORE:
 {ats_score}/100
 
@@ -1114,36 +1308,65 @@ SEMANTIC SCORE:
 {semantic_score:.0f}%
 
 
-MATCHING JOB SKILLS
--------------------
+SKILLS DETECTED FROM JOB
+------------------------
+"""
+
+    if job_skills:
+
+        for skill in job_skills:
+
+            report += (
+                f"✓ {skill}\n"
+            )
+
+    else:
+
+        report += (
+            "No known technical skills detected.\n"
+        )
+
+
+    report += """
+
+MATCHING SKILLS
+---------------
 """
 
     if matching_skills:
 
         for skill in matching_skills:
 
-            report += f"✓ {skill}\n"
+            report += (
+                f"✓ {skill}\n"
+            )
 
     else:
 
-        report += "No matching skills found.\n"
+        report += (
+            "No matching skills found.\n"
+        )
 
 
     report += """
 
-MISSING JOB SKILLS
-------------------
+MISSING SKILLS
+--------------
 """
 
     if missing_skills:
 
         for skill in missing_skills:
 
-            report += f"✗ {skill}\n"
+            report += (
+                f"✗ {skill}\n"
+            )
 
     else:
 
-        report += "No missing job skills.\n"
+        report += (
+            "No missing detected skills.\n"
+        )
 
 
     report += """
@@ -1160,7 +1383,9 @@ SKILLS FOUND IN RESUME
 
     else:
 
-        report += "No skills detected."
+        report += (
+            "No known skills detected."
+        )
 
 
     report += """
@@ -1173,11 +1398,15 @@ RESUME SECTIONS
 
         if section in found_sections:
 
-            report += f"✓ {section}\n"
+            report += (
+                f"✓ {section}\n"
+            )
 
         else:
 
-            report += f"✗ {section}\n"
+            report += (
+                f"✗ {section}\n"
+            )
 
 
     report += """
@@ -1186,17 +1415,13 @@ RECOMMENDATIONS
 ---------------
 """
 
-    if missing_skills:
+    for skill in missing_skills:
 
         report += (
-            "Consider learning or highlighting "
-            "these skills if you genuinely know them:\n"
+            f"- Consider learning or "
+            f"highlighting {skill} if you "
+            f"genuinely know it.\n"
         )
-
-        for skill in missing_skills:
-
-            report += f"- {skill}\n"
-
 
     report += """
 - Keep the resume ATS-friendly.
