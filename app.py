@@ -1,5 +1,5 @@
 import streamlit as st
-import PyPDF2
+from pypdf import PdfReader
 import re
 
 try:
@@ -162,14 +162,14 @@ SECTION_KEYWORDS = {
 
 
 # =========================================================
-# EXTRACT PDF TEXT
+# PDF TEXT EXTRACTION
 # =========================================================
 
 def extract_pdf_text(uploaded_file):
 
     text = ""
 
-    reader = PyPDF2.PdfReader(uploaded_file)
+    reader = PdfReader(uploaded_file)
 
     for page in reader.pages:
 
@@ -182,7 +182,7 @@ def extract_pdf_text(uploaded_file):
 
 
 # =========================================================
-# EXTRACT DOCX TEXT
+# DOCX TEXT EXTRACTION
 # =========================================================
 
 def extract_docx_text(uploaded_file):
@@ -201,7 +201,7 @@ def extract_docx_text(uploaded_file):
 
 
 # =========================================================
-# EXTRACT RESUME TEXT
+# RESUME TEXT EXTRACTION
 # =========================================================
 
 def extract_resume_text(uploaded_file):
@@ -211,7 +211,7 @@ def extract_resume_text(uploaded_file):
     if file_name.endswith(".pdf"):
         return extract_pdf_text(uploaded_file)
 
-    elif file_name.endswith(".docx"):
+    if file_name.endswith(".docx"):
         return extract_docx_text(uploaded_file)
 
     return ""
@@ -247,7 +247,6 @@ def find_skills(text):
     for skill in ALL_SKILLS:
 
         if skill.lower() in text_lower:
-
             found.append(skill)
 
     return found
@@ -266,7 +265,6 @@ def find_job_skills(job_description):
     for skill in JOB_SKILLS:
 
         if skill.lower() in job_lower:
-
             found.append(skill)
 
     return found
@@ -289,53 +287,9 @@ def find_sections(text):
             if keyword.lower() in text_lower:
 
                 found.append(section)
-
                 break
 
     return found
-
-
-# =========================================================
-# ATS SCORE
-# =========================================================
-
-def calculate_ats_score(
-    resume_skills,
-    found_sections,
-    resume_text
-):
-
-    skill_score = min(
-        len(resume_skills) * 2,
-        35
-    )
-
-    section_score = min(
-        len(found_sections) * 7,
-        42
-    )
-
-    if len(resume_text) >= 1200:
-
-        length_score = 23
-
-    elif len(resume_text) >= 700:
-
-        length_score = 15
-
-    else:
-
-        length_score = 8
-
-    total = (
-        skill_score
-        + section_score
-        + length_score
-    )
-
-    return int(
-        min(total, 100)
-    )
 
 
 # =========================================================
@@ -348,7 +302,6 @@ def calculate_job_match(
 ):
 
     if not job_skills:
-
         return 0.0
 
     resume_lower = [
@@ -383,7 +336,6 @@ def calculate_semantic_similarity(
 ):
 
     if not resume_text or not job_description:
-
         return 0.0
 
     try:
@@ -401,7 +353,7 @@ def calculate_semantic_similarity(
             ]
         )
 
-        similarity = cosine_similarity(
+        tfidf_similarity = cosine_similarity(
             vectors[0:1],
             vectors[1:2]
         )[0][0]
@@ -422,7 +374,6 @@ def calculate_semantic_similarity(
         ]
 
         resume_lower = resume_text.lower()
-
         job_lower = job_description.lower()
 
         relevant_keywords = [
@@ -437,30 +388,76 @@ def calculate_semantic_similarity(
             if word in resume_lower
         ]
 
-        if relevant_keywords:
-
-            keyword_score = (
-                len(matched_keywords)
-                / len(relevant_keywords)
-            )
-
-        else:
-
-            keyword_score = 0
+        keyword_score = (
+            len(matched_keywords)
+            / len(relevant_keywords)
+            if relevant_keywords
+            else 0
+        )
 
         final_score = (
-            (similarity * 60)
+            (tfidf_similarity * 60)
             + (keyword_score * 40)
         )
 
         return round(
-            min(float(final_score), 100.0),
+            min(
+                float(final_score),
+                100.0
+            ),
             1
         )
 
     except Exception:
-
         return 0.0
+
+
+# =========================================================
+# ATS SCORE
+# =========================================================
+
+def calculate_ats_score(
+    resume_skills,
+    found_sections,
+    resume_text
+):
+
+    skill_score = min(
+        len(resume_skills) * 2,
+        35
+    )
+
+    section_score = min(
+        len(found_sections) * 7,
+        42
+    )
+
+    if len(resume_text) >= 1200:
+
+        length_score = 23
+
+    elif len(resume_text) >= 700:
+
+        length_score = 15
+
+    else:
+
+        length_score = 8
+
+    ats_score = (
+        skill_score
+        + section_score
+        + length_score
+    )
+
+    ats_score = min(
+        float(ats_score),
+        100.0
+    )
+
+    return int(
+        round(ats_score)
+    )
 
 
 # =========================================================
@@ -506,7 +503,7 @@ analyze = st.button(
 if analyze:
 
     # -----------------------------------------------------
-    # CHECK RESUME
+    # VALIDATION
     # -----------------------------------------------------
 
     if uploaded_file is None:
@@ -516,11 +513,6 @@ if analyze:
         )
 
         st.stop()
-
-
-    # -----------------------------------------------------
-    # CHECK JOB DESCRIPTION
-    # -----------------------------------------------------
 
     if not job_description.strip():
 
@@ -543,7 +535,6 @@ if analyze:
         resume_text
     )
 
-
     if not resume_text:
 
         st.error(
@@ -561,6 +552,10 @@ if analyze:
         resume_text
     )
 
+    job_skills = find_job_skills(
+        job_description
+    )
+
 
     # -----------------------------------------------------
     # FIND SECTIONS
@@ -572,30 +567,18 @@ if analyze:
 
 
     # -----------------------------------------------------
-    # FIND JOB SKILLS
-    # -----------------------------------------------------
-
-    job_skills = find_job_skills(
-        job_description
-    )
-
-
-    # -----------------------------------------------------
     # MATCHING SKILLS
     # -----------------------------------------------------
 
+    resume_skill_lower = [
+        skill.lower()
+        for skill in resume_skills
+    ]
+
     matching_skills = [
-
         skill
-
         for skill in job_skills
-
-        if skill.lower()
-        in [
-            x.lower()
-            for x in resume_skills
-        ]
-
+        if skill.lower() in resume_skill_lower
     ]
 
 
@@ -604,23 +587,15 @@ if analyze:
     # -----------------------------------------------------
 
     missing_skills = [
-
         skill
-
         for skill in job_skills
-
-        if skill.lower()
-        not in [
-            x.lower()
-            for x in resume_skills
-        ]
-
+        if skill.lower() not in resume_skill_lower
     ]
 
 
-    # -----------------------------------------------------
-    # CALCULATE ATS
-    # -----------------------------------------------------
+    # =====================================================
+    # CALCULATE SCORES
+    # =====================================================
 
     ats_score = calculate_ats_score(
         resume_skills,
@@ -628,20 +603,10 @@ if analyze:
         resume_text
     )
 
-
-    # -----------------------------------------------------
-    # CALCULATE JOB MATCH
-    # -----------------------------------------------------
-
     job_match = calculate_job_match(
         resume_skills,
         job_skills
     )
-
-
-    # -----------------------------------------------------
-    # CALCULATE SEMANTIC SCORE
-    # -----------------------------------------------------
 
     semantic_score = calculate_semantic_similarity(
         resume_text,
@@ -649,7 +614,7 @@ if analyze:
     )
 
 
-    # Make sure values are normal Python numbers
+    # Convert to normal Python numbers
 
     ats_score = int(ats_score)
 
@@ -677,7 +642,6 @@ if analyze:
 
     col1, col2, col3 = st.columns(3)
 
-
     with col1:
 
         st.metric(
@@ -685,14 +649,12 @@ if analyze:
             f"{ats_score}/100"
         )
 
-
     with col2:
 
         st.metric(
             "🎯 JOB MATCH",
             f"{job_match:.0f}%"
         )
-
 
     with col3:
 
@@ -702,33 +664,31 @@ if analyze:
         )
 
 
-    # =====================================================
+    # -----------------------------------------------------
     # PROGRESS BARS
-    # =====================================================
+    # -----------------------------------------------------
 
     st.write("### ATS Score")
 
     st.progress(
-        float(ats_score) / 100.0
+        ats_score / 100.0
     )
-
 
     st.write("### Job Match")
 
     st.progress(
-        float(job_match) / 100.0
+        job_match / 100.0
     )
-
 
     st.write("### Semantic Similarity")
 
     st.progress(
-        float(semantic_score) / 100.0
+        semantic_score / 100.0
     )
 
 
     # =====================================================
-    # MATCHING SKILLS
+    # MATCHING JOB SKILLS
     # =====================================================
 
     st.subheader(
@@ -751,7 +711,7 @@ if analyze:
 
 
     # =====================================================
-    # MISSING SKILLS
+    # MISSING JOB SKILLS
     # =====================================================
 
     st.subheader(
@@ -774,7 +734,7 @@ if analyze:
 
 
     # =====================================================
-    # ALL RESUME SKILLS
+    # RESUME SKILLS
     # =====================================================
 
     st.subheader(
@@ -829,7 +789,6 @@ if analyze:
 
     section_cols = st.columns(3)
 
-
     for index, section in enumerate(
         all_sections
     ):
@@ -852,13 +811,12 @@ if analyze:
 
 
     # =====================================================
-    # STRENGTHS
+    # RESUME STRENGTHS
     # =====================================================
 
     st.subheader(
         "💪 Resume Strengths"
     )
-
 
     if len(resume_skills) >= 8:
 
@@ -924,7 +882,6 @@ if analyze:
         "⚠️ Areas to Improve"
     )
 
-
     if missing_skills:
 
         st.write(
@@ -938,7 +895,6 @@ if analyze:
             st.write(
                 f"• {skill}"
             )
-
 
     if "Certifications" not in found_sections:
 
@@ -968,7 +924,6 @@ if analyze:
     st.write(
         "### 🥇 Priority 1 — Job-Relevant Skills"
     )
-
 
     if missing_skills:
 
@@ -1004,7 +959,6 @@ if analyze:
         "### 🥈 Priority 2 — Projects"
     )
 
-
     if "Projects" in found_sections:
 
         st.write(
@@ -1031,7 +985,6 @@ if analyze:
     st.write(
         "### 🥉 Priority 3 — Resume Keywords"
     )
-
 
     if job_skills:
 
@@ -1075,7 +1028,6 @@ if analyze:
         "### 🎯 Priority 5 — Overall Match"
     )
 
-
     if job_match >= 75:
 
         st.success(
@@ -1095,8 +1047,7 @@ if analyze:
         st.warning(
             f"Current job match: "
             f"{job_match:.0f}%. "
-            f"Your resume needs customization "
-            f"for this role."
+            f"Your resume needs customization for this role."
         )
 
 
@@ -1108,24 +1059,14 @@ if analyze:
         "💡 General Suggestions"
     )
 
-
     suggestions = [
-
         "Keep the resume clean and ATS-friendly.",
-
-        "Use strong action words such as "
-        "Developed, Built, Implemented and Designed.",
-
+        "Use strong action words such as Developed, Built, Implemented and Designed.",
         "Add measurable achievements wherever possible.",
-
         "Keep skills relevant to the target role.",
-
         "Add GitHub and LinkedIn links if available.",
-
         "Do not add skills that you do not genuinely know."
-
     ]
-
 
     for suggestion in suggestions:
 
@@ -1177,7 +1118,6 @@ MATCHING JOB SKILLS
 -------------------
 """
 
-
     if matching_skills:
 
         for skill in matching_skills:
@@ -1194,7 +1134,6 @@ MATCHING JOB SKILLS
 MISSING JOB SKILLS
 ------------------
 """
-
 
     if missing_skills:
 
@@ -1213,7 +1152,6 @@ SKILLS FOUND IN RESUME
 ----------------------
 """
 
-
     if resume_skills:
 
         report += ", ".join(
@@ -1231,7 +1169,6 @@ RESUME SECTIONS
 ---------------
 """
 
-
     for section in all_sections:
 
         if section in found_sections:
@@ -1248,7 +1185,6 @@ RESUME SECTIONS
 RECOMMENDATIONS
 ---------------
 """
-
 
     if missing_skills:
 
@@ -1271,14 +1207,9 @@ RECOMMENDATIONS
 """
 
 
-    # -----------------------------------------------------
-    # DOWNLOAD BUTTON
-    # -----------------------------------------------------
-
     st.subheader(
         "📥 Download Analysis Report"
     )
-
 
     st.download_button(
         label="📥 Download Resume Analysis Report",
